@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react'
 
 const CategoryList = ({categoryList}) => {
-    console.log(categoryList)
   return (
     <div className={`mx-4 md:mx-22 lg:mx-52 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
         {categoryList.length>0 ?
