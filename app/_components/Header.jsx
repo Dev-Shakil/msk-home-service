@@ -11,20 +11,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const Header = () => {
   const { data } = useSession();
   useEffect(() => {
-    console.log(data?.user?.name);
   }, [data]);
   return (
-    <div className="flex shadow-sm p-5 items-center justify-between">
+    <div className="flex shadow-sm md:p-4 p-1 items-center justify-between">
       <div className="flex items-center gap-8 ">
         <Image src={"/logo.svg"} alt="logo" width={180} height={100} />
         <div class="md:flex hidden gap-6 items-center">
-          <h2 className="hover:scale-105 hover:text-primary cursor-pointer">
+          <Link href={"/"} className="hover:scale-105 hover:text-primary cursor-pointer">
             Home
-          </h2>
+          </Link>
           <h2 className="hover:scale-105 hover:text-primary cursor-pointer">
             About
           </h2>
@@ -43,7 +43,7 @@ const Header = () => {
                 width={40}
                 height={40}
                 className="rounded-full"
-              /><div className="flex flex-col text-start"><h3 className="font-bold text-lg">{data?.user?.name}</h3><p>{data?.user?.email}</p></div>
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>

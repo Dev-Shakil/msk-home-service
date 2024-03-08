@@ -3,13 +3,12 @@ import Image from 'next/image'
 import React from 'react'
 
 const BusinessList = ({businessList,title}) => {
-    console.log(businessList)
   return (
     <div className="mt-5">
         <h2 className="font-bold text-[22px]">{title}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5 mb-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5 mb-8">
             {
-                businessList.length>0?businessList?.map((business,index)=>{
+                businessList?.length>0?businessList?.map((business,index)=>{
                     return(
                         <div key={index} className="shadow-md rounded-lg hover:shadow-xl hover:shadow-primary cursor-pointer hover:scale-105 transition-all ease-in-out">
                             <Image src={business?.image[0]?.url}
