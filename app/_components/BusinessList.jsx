@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const BusinessList = ({businessList,title}) => {
@@ -10,7 +11,7 @@ const BusinessList = ({businessList,title}) => {
             {
                 businessList?.length>0?businessList?.map((business,index)=>{
                     return(
-                        <div key={index} className="shadow-md rounded-lg hover:shadow-xl hover:shadow-primary cursor-pointer hover:scale-105 transition-all ease-in-out">
+                        <Link href={`/details/${business?.id}`} key={index} className="shadow-md rounded-lg hover:shadow-xl hover:shadow-primary cursor-pointer hover:scale-105 transition-all ease-in-out">
                             <Image src={business?.image[0]?.url}
                             alt={business?.name}
                             width={500}
@@ -23,7 +24,7 @@ const BusinessList = ({businessList,title}) => {
                               <h2 className="text-gray-500 text-sm">{business.address?.substr(0,30)}...</h2>
                               <Button className="rounded-lg mt-2">Book Now</Button>
                             </div>
-                        </div>
+                        </Link>
                     )
                 }):
                 [1,2,3,4,5,6,7,8].map((item,index)=>{

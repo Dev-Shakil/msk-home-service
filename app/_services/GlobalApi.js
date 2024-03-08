@@ -82,8 +82,37 @@ const getBusinessByCategory = async (category) => {
         throw error; // Rethrow the error if needed
     }
 };
+const getBusinessById =async (id) => {
+  try {
+    const query = gql`
+    query BusinessListById {
+      businessList(where: {id: "${id}"}) {
+        about
+        address
+        email
+        id
+        image {
+          url
+        }
+        name
+        contactPerson
+        category {
+          name
+        }
+      }
+    }
+    `;
+
+    const result = await request(MASTER_URL, query);
+    return result;
+} catch (error) {
+    console.error("Error fetching BusinessList:", error);
+    throw error; // Rethrow the error if needed
+}
+}
 export default{
     getCategory,
     getBusinessList,
     getBusinessByCategory,
+    getBusinessById,
 }
