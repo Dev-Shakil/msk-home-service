@@ -13,7 +13,7 @@ const BusinessDescription = ({business}) => {
                     alt={"image" + index}
                     width={700}
                     height={200}
-                    className="rounded-lg" />
+                    className="rounded-lg max-h-[100px]" />
             })}
         </div>
     </div>

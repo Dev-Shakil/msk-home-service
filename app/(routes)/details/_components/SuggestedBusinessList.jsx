@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { NotebookPen } from 'lucide-react'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+import BookingSection from './BookingSection';
 
 const SuggestedBusinessList = ({business}) => {
     const [businessList,setBusinessList] = useState([]);
@@ -18,10 +19,13 @@ const SuggestedBusinessList = ({business}) => {
     }
   return (
     <div className="md:pl-10 ">
-        <Button className="flex gap-2 w-full">
-        <NotebookPen/>
-        Book Appointment
-        </Button>
+        <BookingSection business={business}>
+            <Button className="flex gap-2 w-full">
+            <NotebookPen/>
+            Book Appointment
+            </Button>
+        </BookingSection>
+        
         <h2 className="font-bold text-lg my-3">Similar Business</h2>
         <div className="hidden md:block">
         {businessList&&businessList.map((business,index)=>{
