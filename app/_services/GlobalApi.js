@@ -138,13 +138,61 @@ const createNewBooking = async (businessId,date,time,userEmail,userName,)=>{
     throw error; // Rethrow the error if needed
 }
 }
-  // publishManyBookings(to: PUBLISHED){
-  //   count
-  // }
+const BusinessBookedSlot = async (businessId,date) => {
+  try{
+    const query = gql`
+    query BusinessBookedSlot {
+      bookings(where: {businessList: {id: "${businessId}"}, date: "${date}"}) {
+        date
+        time
+      }
+    }
+    
+    `
+    const result = await request(MASTER_URL, query);
+  
+  
+      console.log(result)
+      return result;
+  }catch(error){
+    console.log(error)
+  }
+}
+const getUserBookingHistory = async (userEmail) => {
+  try{
+    const query = gql`
+      query  {
+        bookings(where: {userEmail: "${userEmail}"},
+          orderBy: publishedAt_DESC
+        ) {
+          businessList {
+            name
+            image {
+              url
+            }
+            contactPerson
+            address
+          }
+          date
+          time
+        }
+      }
+    `
+    const result = await request(MASTER_URL, query);
+  
+  
+      console.log(result)
+      return result;
+  }catch(error){
+    console.log(error)
+  }
+}
 export default{
+    getUserBookingHistory,
     getCategory,
     getBusinessList,
     getBusinessByCategory,
     getBusinessById,
     createNewBooking,
+    BusinessBookedSlot,
 }

@@ -48,7 +48,7 @@ const Header = () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>My Booking</DropdownMenuItem>
+              <DropdownMenuItem><Link href="/mybooking">My Booking</Link></DropdownMenuItem>
               <DropdownMenuItem onClick={()=>signOut()}>Logout</DropdownMenuItem>
               
             </DropdownMenuContent>

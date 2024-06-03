@@ -15,10 +15,12 @@ import { Button } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import GlobalApi from '@/app/_services/GlobalApi';
+import moment from 'moment';
   
 const BookingSection = ({children,business}) => {
     const [date,setDate] = useState(new Date());
     const [timeSlot,setTimeSlot] = useState([]);
+    const [bookedSlot,setBookedSlot] = useState([]);
     const [selectedTime,setSelectedTime]=useState();
     const {data} = useSession()
     useEffect(()=>{
@@ -26,6 +28,14 @@ const BookingSection = ({children,business}) => {
         setDate();
         setSelectedTime('');
     },[])
+    useEffect(()=>{
+        date&&BusinessBookedSlot();
+    },[date]);
+    const BusinessBookedSlot=()=>{
+        GlobalApi.BusinessBookedSlot(business.id, moment(date).format('DD-MMM-YYYY')).then(resp=>{
+            setBookedSlot(resp.bookings)
+        })
+    }
     const getTime = () => {
         const timeList = [];
         for(let i=10; i<=12; i++){
@@ -47,7 +57,7 @@ const BookingSection = ({children,business}) => {
         setTimeSlot(timeList)
     }
     const submitBooking = ()=>{
-        GlobalApi.createNewBooking(business?.id,date,selectedTime,data?.user?.email,data?.user?.name)
+        GlobalApi.createNewBooking(business?.id,moment(date).format('DD-MMM-YYYY'),selectedTime,data?.user?.email,data?.user?.name)
         .then(resp=>{
             console.log(resp);
             if(resp){
@@ -58,6 +68,9 @@ const BookingSection = ({children,business}) => {
         },(e)=>{
             toast("Error While creating Booking")
         })
+    }
+    const isSlotBooked = (time) => {
+        return bookedSlot.find(item => item.time == time)
     }
   return (
     <div>
@@ -80,7 +93,8 @@ const BookingSection = ({children,business}) => {
                     <h2 className="font-bold my-5">Select Time Slot</h2>
                     <div className='grid grid-cols-3 gap-3 '>
                         {timeSlot.map((item,index)=>{
-                            return <Button variant='outiline' key={item.time} onClick={()=>setSelectedTime(item.time)} className={` rounded-full hover:text-white border hover:bg-primary p-2 px-3 ${selectedTime==item.time&&'bg-primary text-white'}`} >{item.time}</Button>
+                            return <Button variant='outiline'
+                            disabled={isSlotBooked(item.time)} key={item.time} onClick={()=>setSelectedTime(item.time)} className={` rounded-full hover:text-white border hover:bg-primary p-2 px-3 ${selectedTime==item.time&&'bg-primary text-white'}`} >{item.time}</Button>
                         })}
                     </div>
                 </SheetDescription>  
