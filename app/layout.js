@@ -7,8 +7,8 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "MSK Home Service",
-  description: "Bringing All Services at the Home Door",
+  title: "MSK Home Service ",
+  description: "Bringing All Services at the Home Door for You",
 };
 
 export default function RootLayout({ children }) {
