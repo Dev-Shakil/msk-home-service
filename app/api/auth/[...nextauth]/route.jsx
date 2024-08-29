@@ -1,5 +1,7 @@
-import { authOptions } from "@/lib/auth";
+
 import NextAuth from "next-auth/next";
+import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 
 
 // export const authOptions = {
@@ -24,7 +26,20 @@ import NextAuth from "next-auth/next";
 //         },
 //     }]
 // }  
-
+export const authOptions = {
+    // Configure one or more authentication providers
+    providers: [
+      GithubProvider({
+        clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GITHUB_SEC,
+      }),
+      GoogleProvider({
+        clientId: process.env.NEXT_PUBLIC_GOOGLE_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SEC,
+      }),
+      // ...add more providers here
+    ],
+  }
 
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
